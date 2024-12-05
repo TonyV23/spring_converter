@@ -35,8 +35,8 @@ public class NumberToWordsService {
 
     @POST
     @Path("/to_words")
-    @Consumes(MediaType.APPLICATION_XML)
-    @Produces(MediaType.APPLICATION_XML)
+    @Consumes("text/xml")
+    @Produces("text/xml")
     public Response getNumberToWords(NumberToWordsRequest request) {
         try {
             // getting the number entered
@@ -45,7 +45,7 @@ public class NumberToWordsService {
             //format the request parameter
             BigInteger requestParam = new BigInteger(String.valueOf(request.getUbiNum()));
 
-            String response = port.numberToWords(String.valueOf(requestParam));
+            String response = port.numberToWords(requestParam);
 
             // Create NumberToDollarsResponse object to handle the SOAP respon
             NumberToWordsResponse numberToWordsResponse = new NumberToWordsResponse();

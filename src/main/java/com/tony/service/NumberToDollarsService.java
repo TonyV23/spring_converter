@@ -35,8 +35,8 @@ public class NumberToDollarsService {
 
     @POST
     @Path("/to_dollars")
-    @Consumes(MediaType.APPLICATION_XML)
-    @Produces(MediaType.APPLICATION_XML)
+    @Consumes("text/xml")
+    @Produces("text/xml")
     public Response getNumberToDollars (NumberToDollarsRequest request){
         try {
 
@@ -46,7 +46,7 @@ public class NumberToDollarsService {
             BigDecimal numberToDollar = new BigDecimal(String.valueOf(request.getNumberToDollar()));
 
             // Invoke the SOAP service NumberToDollars method and get the response as a string
-            String response = port.numberToDollars(String.valueOf(numberToDollar));
+            String response = port.numberToDollars(numberToDollar);
 
             // Create NumberToDollarsResponse object to handle the SOAP response
             NumberToDollarsResponse  numberToDollarsResponse = new NumberToDollarsResponse();
