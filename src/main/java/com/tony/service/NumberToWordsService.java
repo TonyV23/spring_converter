@@ -15,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.math.BigInteger;
 
 @Service
 @Path("/")
@@ -33,7 +34,7 @@ public class NumberToWordsService {
     }
 
     @POST
-    @Path("/get_number_to_words")
+    @Path("/to_words")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNumberToWords(NumberToWordsRequest request) {
@@ -42,8 +43,9 @@ public class NumberToWordsService {
             logger.info("Getting numbers from {}", request.getUbiNum());
 
             //format the request parameter
-            String requestParam = String.format("ubiNum|%s",request.getUbiNum());
-            String response = port.numberToWords(requestParam);
+            BigInteger requestParam = new BigInteger(String.valueOf(request.getUbiNum()));
+
+            String response = port.numberToWords(String.valueOf(requestParam));
 
             // Create NumberToDollarsResponse object to handle the SOAP respon
             NumberToWordsResponse numberToWordsResponse = new NumberToWordsResponse();

@@ -1,13 +1,15 @@
 package com.tony.model;
 
-public class NumberToDollarsRequest {
-    private double dNum;
+import java.math.BigDecimal;
 
-    public double getNumberToDollar() {
+public class NumberToDollarsRequest {
+    private BigDecimal dNum;
+
+    public BigDecimal getNumberToDollar() {
         return dNum;
     }
 
-    public void setNumberToDollar(double dNum) {
+    public void setNumberToDollar(BigDecimal dNum) {
         this.dNum = dNum;
     }
 }

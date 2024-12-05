@@ -171,7 +171,7 @@
                         </goals>
                         <configuration>
                             <systemPropertyVariables>
-                                <service.url>http://localhost:${test.server.port}/jaxrs-service</service.url>
+                                <service.url>http://localhost:${test.server.port}/jaxrs-service/api</service.url>
                             </systemPropertyVariables>
                         </configuration>
                     </execution>

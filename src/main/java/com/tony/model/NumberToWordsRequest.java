@@ -1,14 +1,16 @@
 package com.tony.model;
 
+import java.math.BigInteger;
+
 public class NumberToWordsRequest {
 
-    private long ubiNum;
+    private BigInteger ubiNum;
 
-    public long getUbiNum() {
+    public BigInteger getUbiNum() {
         return ubiNum;
     }
 
-    public void setUbiNum(long ubiNum) {
+    public void setUbiNum(BigInteger ubiNum) {
         this.ubiNum = ubiNum;
     }
 }
