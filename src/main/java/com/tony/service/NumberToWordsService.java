@@ -35,8 +35,8 @@ public class NumberToWordsService {
 
     @POST
     @Path("/to_words")
-    @Consumes("text/xml")
-    @Produces("text/xml")
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
     public Response getNumberToWords(NumberToWordsRequest request) {
         try {
             // getting the number entered
