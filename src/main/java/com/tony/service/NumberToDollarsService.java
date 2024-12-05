@@ -35,8 +35,8 @@ public class NumberToDollarsService {
 
     @POST
     @Path("/to_dollars")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
     public Response getNumberToDollars (NumberToDollarsRequest request){
         try {
 
