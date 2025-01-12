@@ -1,4 +1,4 @@
-package com.tony.model;
+package com.econet.model;
 
 import java.math.BigDecimal;
 

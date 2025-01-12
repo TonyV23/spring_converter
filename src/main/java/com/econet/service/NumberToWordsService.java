@@ -1,9 +1,10 @@
-package com.tony.service;
+package com.econet.service;
 
 import com.dataaccess.webservicesserver.NumberConversion;
 import com.dataaccess.webservicesserver.NumberConversionSoapType;
-import com.dataaccess.webservicesserver.NumberToDollarsResponse;
-import com.tony.model.NumberToDollarsRequest;
+import com.dataaccess.webservicesserver.NumberToWords;
+import com.dataaccess.webservicesserver.NumberToWordsResponse;
+import com.econet.model.NumberToWordsRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Service
 @Path("/")
-public class NumberToDollarsService {
+public class NumberToWordsService {
     // initialize logging
-    private static final Logger logger = LoggerFactory.getLogger(NumberToDollarsService.class);
+    private static final Logger logger = LoggerFactory.getLogger(NumberToWordsService.class);
 
     //initialize serviceSoap interface
     private NumberConversionSoapType port;
@@ -34,26 +35,27 @@ public class NumberToDollarsService {
     }
 
     @POST
-    @Path("/to_dollars")
+    @Path("/to_words")
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
-    public Response getNumberToDollars (NumberToDollarsRequest request){
+    public Response getNumberToWords(NumberToWords request) {
         try {
-
             // getting the number entered
-            logger.info("Getting numbers from {}", request.getNumberToDollar());
+            logger.info("Getting the request number {}", request.getUbiNum());
 
-            BigDecimal numberToDollar = new BigDecimal(String.valueOf(request.getNumberToDollar()));
+            //format the request parameter
+            BigInteger requestParam = new BigInteger(String.valueOf(request.getUbiNum()));
 
-            // Invoke the SOAP service NumberToDollars method and get the response as a string
-            String response = port.numberToDollars(numberToDollar);
+            String response = port.numberToWords(requestParam);
 
-            // Create NumberToDollarsResponse object to handle the SOAP response
-            NumberToDollarsResponse  numberToDollarsResponse = new NumberToDollarsResponse();
-            numberToDollarsResponse.setNumberToDollarsResult(response);
+            logger.info("Log the response: {}", response);
 
-            String result = numberToDollarsResponse.getNumberToDollarsResult();
+            // Create NumberToDollarsResponse object to handle the SOAP respon
+            NumberToWordsResponse numberToWordsResponse = new NumberToWordsResponse();
+            numberToWordsResponse.setNumberToWordsResult(response);
 
+            // Getting the result from the soap response
+            String result = numberToWordsResponse.getNumberToWordsResult();
 
             // Check if the number's info was retrieved by verifying the result
             if (result != null && !result.isEmpty()) {
@@ -64,14 +66,14 @@ public class NumberToDollarsService {
                 return Response.ok().entity(result).build();
             } else {
                 // Log failed numbers' information
-                logger.info("Getting number's translation failed for {}", request.getNumberToDollar());
+                logger.info("Getting number's translation failed for {}", request.getUbiNum());
 
                 // Return BAD_REQUEST response with a failure message
                 return Response.status(Response.Status.BAD_REQUEST).entity("Failed! Please try again!").build();
             }
 
         } catch (Exception e) {
-            logger.error("Error while getting number's translation : {}",e.getMessage());
+            logger.error("Error while getting number's translation : {}", e.getMessage());
 
             // Return INTERNAL_SERVER_ERROR response with the exception message
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)

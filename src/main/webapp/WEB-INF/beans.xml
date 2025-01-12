@@ -12,13 +12,14 @@
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <context:property-placeholder/>
     <context:annotation-config/>
+    <context:component-scan base-package="com.econet.*"/>
     <bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer"/>
     <bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer"/>
     <jaxrs:server id="services" address="/api">
         <jaxrs:serviceBeans>
             <bean class="org.example.HelloWorld"/>
-            <bean class="com.tony.service.NumberToDollarsService"/>
-            <bean class="com.tony.service.NumberToWordsService"/>
+            <bean class="com.econet.service.NumberToDollarsService"/>
+            <bean class="com.econet.service.NumberToWordsService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
